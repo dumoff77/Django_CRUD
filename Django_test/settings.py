@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -25,7 +24,17 @@ SECRET_KEY = '^^ofpj6v53a+hs+13f2b8!+^4&fdq#vuw4g4@h=8&svcr_(pb!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS = ["*"]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        #'rest_framework.permissions.DjangoModelPermissions',
+        'rest_framework.permissions.AllowAny'
+    ]
+}
 
 
 # Application definition
@@ -37,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'first_project.apps.FirstProjectConfig',
+    'phone_handbook.apps.FirstProjectConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -77,8 +87,12 @@ WSGI_APPLICATION = 'Django_test.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test1',
+        'USER': 'postgres',
+        'PASSWORD': '12345',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
